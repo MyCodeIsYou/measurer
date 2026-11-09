@@ -56,9 +56,14 @@ export default function LoginBox({ onFindAccount, onLoggedIn }) {
       });
       const data = await response.json().catch(() => ({}));
       if (response.ok && data.ok && data.loggedIn) {
+        const pages = Array.isArray(data.pages)
+          ? data.pages
+          : data.screen?.html
+            ? [{ id: "notify", name: "공지", ...data.screen }]
+            : [];
         onLoggedIn?.({
-          screen: data.screen?.html ? data.screen : null,
-          error: data.screen?.html ? "" : data.screenError || "공지 화면을 받지 못했습니다.",
+          pages,
+          error: pages.some((item) => item.html) ? "" : data.screenError || "화면을 받지 못했습니다.",
         });
         return;
       }

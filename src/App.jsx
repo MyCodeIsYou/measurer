@@ -6,8 +6,8 @@ import PageLoad from "./pages/PageLoad";
 export default function App() {
   const [result, setResult] = useState(null);
 
-  if (result?.screen?.html) {
-    return <CapturedPage screen={result.screen} onBack={() => setResult(null)} />;
+  if (result?.pages?.some((item) => item.html)) {
+    return <CapturedPage pages={result.pages} onBack={() => setResult(null)} />;
   }
 
   if (result?.error) {
