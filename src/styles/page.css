@@ -220,6 +220,14 @@ body {
   font-weight: 700;
 }
 
+.login-error.is-ok {
+  color: #048e6c;
+}
+
+.login-error.is-wait {
+  color: #555;
+}
+
 .modal-backdrop.in {
   opacity: 0.5;
 }

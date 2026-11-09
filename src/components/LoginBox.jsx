@@ -8,6 +8,8 @@ export default function LoginBox({ onFindAccount }) {
   const [remember, setRemember] = useState(true);
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState("");
+  const [ok, setOk] = useState(false);
+  const [pending, setPending] = useState(false);
 
   useEffect(() => {
     const saved = window.localStorage.getItem(SAVED_ID);
@@ -20,18 +22,49 @@ export default function LoginBox({ onFindAccount }) {
     else if (userId) window.localStorage.setItem(SAVED_ID, userId);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+    if (pending) return;
     if (!userId.trim()) {
+      setOk(false);
       setError("아이디를 입력해 주세요");
       return;
     }
     if (!password) {
+      setOk(false);
       setError("비밀번호를 입력해 주세요");
       return;
     }
-    setError("");
     if (remember) window.localStorage.setItem(SAVED_ID, userId.trim());
+    setOk(false);
+    setError("측정인 사이트에서 로그인을 확인하는 중입니다.");
+    setPending(true);
+    try {
+      const response = await fetch("/api/automation/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(70000),
+        body: JSON.stringify({
+          site: "chookjeongin",
+          action: "login",
+          username: userId.trim(),
+          password,
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (response.ok && data.ok && data.loggedIn) {
+        setOk(true);
+        setError(data.message || "로그인되었습니다.");
+        return;
+      }
+      setOk(false);
+      setError(data.message || "로그인에 실패했습니다.");
+    } catch {
+      setOk(false);
+      setError("로그인 확인 요청이 시간 안에 끝나지 않았습니다.");
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -95,10 +128,12 @@ export default function LoginBox({ onFindAccount }) {
                 event.currentTarget.closest("form")?.requestSubmit();
               }}
             >
-              로그인
+              {pending ? "확인 중" : "로그인"}
             </a>
           </div>
-          {error && <em className="invalid login-error">{error}</em>}
+          {error && (
+            <em className={`invalid login-error${ok ? " is-ok" : ""}${pending ? " is-wait" : ""}`}>{error}</em>
+          )}
           <div className="login-nav">
             <a href="#find-id" id="findId" onClick={(event) => { event.preventDefault(); onFindAccount(); }}>
               아이디찾기
