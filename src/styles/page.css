@@ -26,6 +26,30 @@ body {
   display: block;
 }
 
+.header .ty02 .gnb .gnb-dep3 {
+  display: block;
+  margin-top: 6px;
+}
+
+.header .ty02 .gnb .gnb-dep3 li {
+  margin-bottom: 6px;
+}
+
+.header .ty02 .gnb .gnb-dep3 a {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: #333;
+  padding: 8px 6px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+
+.header-wrap.on .header .ty02 .gnb-bg {
+  height: 300px;
+}
+
 #pwresetModal .modal-body section {
   margin: 10px auto 0 auto;
   overflow: hidden;

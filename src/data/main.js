@@ -95,7 +95,14 @@ export const MENUS = [
     label: "제도소개",
     href: "/cm/pub/aboutContract.go",
     items: [
-      { label: "측정대행", href: "/cm/pub/aboutContract.go" },
+      {
+        label: "측정대행",
+        href: "/cm/pub/aboutContract.go",
+        items: [
+          { label: "계약관리제도", href: "/cm/pub/aboutContract.go" },
+          { label: "용역이행능력평가", href: "/cm/pub/aboutService.go" },
+        ],
+      },
       { label: "환경측정분석\n정보관리시스템", href: "/cm/pub/system.go" },
     ],
   },
