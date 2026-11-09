@@ -56,12 +56,10 @@ export default function LoginBox({ onFindAccount, onLoggedIn }) {
       });
       const data = await response.json().catch(() => ({}));
       if (response.ok && data.ok && data.loggedIn) {
-        if (data.screen?.html) {
-          onLoggedIn?.(data.screen);
-          return;
-        }
-        setOk(true);
-        setError(data.message || "로그인되었습니다.");
+        onLoggedIn?.({
+          screen: data.screen?.html ? data.screen : null,
+          error: data.screen?.html ? "" : data.screenError || "공지 화면을 받지 못했습니다.",
+        });
         return;
       }
       setOk(false);
