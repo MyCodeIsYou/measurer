@@ -15,7 +15,7 @@ function noticeHiddenToday() {
   return saved === new Date().toDateString();
 }
 
-export default function MainPage() {
+export default function MainPage({ onLoggedIn }) {
   const [noticeOpen, setNoticeOpen] = useState(() => !noticeHiddenToday());
   const [hideToday, setHideToday] = useState(false);
   const [resetOpen, setResetOpen] = useState(false);
@@ -37,7 +37,7 @@ export default function MainPage() {
       <div id="goContent" className="hidden">메인콘텐츠</div>
       <div className="main-content">
         <VisualSlide />
-        <LoginBox onFindAccount={() => setResetOpen(true)} />
+        <LoginBox onFindAccount={() => setResetOpen(true)} onLoggedIn={onLoggedIn} />
         <ServiceSection />
       </div>
       <Footer />

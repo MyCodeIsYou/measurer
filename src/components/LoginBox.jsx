@@ -5,7 +5,7 @@ const RUN_URL = import.meta.env.DEV
   ? "/api/automation/run"
   : "https://analytics-gamma-wheat.vercel.app/api/automation/run";
 
-export default function LoginBox({ onFindAccount }) {
+export default function LoginBox({ onFindAccount, onLoggedIn }) {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(true);
@@ -56,6 +56,10 @@ export default function LoginBox({ onFindAccount }) {
       });
       const data = await response.json().catch(() => ({}));
       if (response.ok && data.ok && data.loggedIn) {
+        if (data.screen?.html) {
+          onLoggedIn?.(data.screen);
+          return;
+        }
         setOk(true);
         setError(data.message || "로그인되었습니다.");
         return;
