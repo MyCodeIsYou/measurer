@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
 const SAVED_ID = "userInputId";
+const RUN_URL = import.meta.env.DEV
+  ? "/api/automation/run"
+  : "https://analytics-gamma-wheat.vercel.app/api/automation/run";
 
 export default function LoginBox({ onFindAccount }) {
   const [userId, setUserId] = useState("");
@@ -40,7 +43,7 @@ export default function LoginBox({ onFindAccount }) {
     setError("측정인 사이트에서 로그인을 확인하는 중입니다.");
     setPending(true);
     try {
-      const response = await fetch("/api/automation/run", {
+      const response = await fetch(RUN_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         signal: AbortSignal.timeout(70000),
@@ -58,10 +61,11 @@ export default function LoginBox({ onFindAccount }) {
         return;
       }
       setOk(false);
-      setError(data.message || "로그인에 실패했습니다.");
-    } catch {
+      setError(data.message || `로그인에 실패했습니다. (${response.status})`);
+    } catch (error) {
       setOk(false);
-      setError("로그인 확인 요청이 시간 안에 끝나지 않았습니다.");
+      const timedOut = error instanceof DOMException && error.name === "TimeoutError";
+      setError(timedOut ? "로그인 확인 요청이 시간 안에 끝나지 않았습니다." : "로그인 서버에 연결하지 못했습니다.");
     } finally {
       setPending(false);
     }
