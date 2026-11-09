@@ -1,3 +1,5 @@
+import { publicUrl } from "../publicUrl";
+
 export default function Footer() {
   const openPrivacy = (event) => {
     event.preventDefault();
@@ -13,7 +15,7 @@ export default function Footer() {
       <div className="footer-info">
         <div className="footer-inner">
           <div className="footer-logo">
-            <img src="/images/logo-w.png" alt="측정인" />
+            <img src={publicUrl("/images/logo-w.png")} alt="측정인" />
           </div>
           <div className="footer-txt">
             <span>환경측정분석 정보관리시스템 : eco-measure@keco.or.kr</span>

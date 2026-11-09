@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NOTICES, PARTNERS, REGIONS } from "../data/main";
+import { publicUrl } from "../publicUrl";
 
 function stay(event) {
   event.preventDefault();
@@ -57,17 +58,17 @@ export default function ServiceSection() {
             <ul>
               <li>
                 <a href="/cm/pub/faqboard.go" onClick={stay}>
-                  <img src="/images/main/cs-faq.png" alt="" />FAQ
+                  <img src={publicUrl("/images/main/cs-faq.png")} alt="" />FAQ
                 </a>
               </li>
               <li>
                 <a href="/cm/pub/manual.go" onClick={stay}>
-                  <img src="/images/main/cs-manual.png" alt="" />매뉴얼
+                  <img src={publicUrl("/images/main/cs-manual.png")} alt="" />매뉴얼
                 </a>
               </li>
               <li>
                 <a href="/cm/pub/board.go" onClick={stay}>
-                  <img src="/images/main/cs-data.png" alt="" />자료실
+                  <img src={publicUrl("/images/main/cs-data.png")} alt="" />자료실
                 </a>
               </li>
             </ul>
@@ -101,7 +102,7 @@ export default function ServiceSection() {
           <div id="maps" className="main-company">
             <h2>측정대행업체 정보조회</h2>
             <div className="map">
-              <img src="/images/main/map-main.png" alt="" />
+              <img src={publicUrl("/images/main/map-main.png")} alt="" />
               <div className="map-list">
                 {REGIONS.map((region) => (
                   <a
@@ -134,7 +135,7 @@ export default function ServiceSection() {
           </form>
           <div className="main-banner">
             <a href="https://kepaedu.or.kr/ema/main.do" target="_blank" rel="noreferrer">
-              <img src="/images/main/banner.png" alt="" />
+              <img src={publicUrl("/images/main/banner.png")} alt="" />
             </a>
           </div>
         </div>

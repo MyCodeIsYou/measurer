@@ -5,7 +5,11 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const apiKey = env.AUTOMATION_API_KEY || "";
 
+  const configuredBase = process.env.VITE_BASE || env.VITE_BASE || "/";
+  const base = configuredBase === "/" ? "/" : `/${configuredBase.replace(/^\/|\/$/g, "")}/`;
+
   return {
+    base,
     plugins: [react()],
     server: {
       port: 5173,

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { MENUS } from "../data/main";
+import { publicUrl } from "../publicUrl";
 
 function MenuLabel({ label }) {
   const lines = label.split("\n");
@@ -74,7 +75,7 @@ export default function Header({ noticeOpen, onOpenNotice }) {
             <span className="hidden">모바일 메뉴</span>
           </button>
           <div className="mobile-gnb" style={{ display: menuOpen ? "block" : "none" }}>
-            <img src="/images/logo-w.png" alt="측정인" className="mo-nav-logo" />
+            <img src={publicUrl("/images/logo-w.png")} alt="측정인" className="mo-nav-logo" />
             <ul>
               <li className={mobileOpen.notice ? "on" : ""}>
                 <a href="#notice" className="on" onClick={(event) => { event.preventDefault(); toggleMobile("notice"); }}>
@@ -156,7 +157,7 @@ export default function Header({ noticeOpen, onOpenNotice }) {
           style={{ display: noticeOpen ? "none" : "block" }}
           onClick={onOpenNotice}
         >
-          <img src="/images/common/ico-plus.png" alt="" />
+          <img src={publicUrl("/images/common/ico-plus.png")} alt="" />
         </button>
       </div>
     </div>

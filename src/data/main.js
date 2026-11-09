@@ -1,3 +1,5 @@
+import { publicUrl } from "../publicUrl";
+
 export const TOP_NOTICE =
   "2028년 수질·대기분야 용역이행능력평가 매뉴얼(안) 사전 의견조회 실시 알림";
 
@@ -6,7 +8,7 @@ export const SLIDES = [
     title: "측정대행 계약관리제도",
     lines: ["측정대행업계의 선순환 유도, 공정한 측정대행", "문화 정착으로 건강한 환경산업을 만듭니다."],
     href: "/cm/pub/aboutContract.go",
-    image: "/images/main/main-visual1.png",
+    image: publicUrl("/images/main/main-visual1.png"),
   },
   {
     title: "용역이행능력평가",
@@ -14,7 +16,7 @@ export const SLIDES = [
       "측정대행업체의 측정능력 범위와 측정가용능력 준수 여부 등 측정대행업체 역량을 객관적ㆍ정략적으로 평가합니다.",
     ],
     href: "/cm/pub/aboutService.go",
-    image: "/images/main/main-visual2.png",
+    image: publicUrl("/images/main/main-visual2.png"),
   },
   {
     title: "환경측정분석정보관리시스템",
@@ -22,7 +24,7 @@ export const SLIDES = [
       "환경오염물질의 허위 · 부실 측정을 방지하고, 측정 · 분석결과의 신뢰도 확보 및 전국 측정대행업을 체계적으로 관리합니다.",
     ],
     href: "/cm/pub/system.go",
-    image: "/images/main/main-visual3.png",
+    image: publicUrl("/images/main/main-visual3.png"),
   },
 ];
 
@@ -62,7 +64,7 @@ export const PARTNERS = [
   ["https://somsys.or.kr", "/images/main/partner14.png"],
   ["https://www.noiseinfo.or.kr", "/images/main/partner15.png"],
   ["https://ieps.nier.go.kr", "/images/main/partner16.png"],
-];
+].map(([href, src]) => [href, publicUrl(src)]);
 
 export const REGIONS = [
   { id: "maps1", code: "2800000000", name: "인천", count: 31, area: "Incheon" },
