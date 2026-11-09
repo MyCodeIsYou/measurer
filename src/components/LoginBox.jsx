@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
+import { RUN_URL } from "../runUrl";
 
 const SAVED_ID = "userInputId";
-const RUN_URL = import.meta.env.DEV
-  ? "/api/automation/run"
-  : "https://analytics-gamma-wheat.vercel.app/api/automation/run";
 
 export default function LoginBox({ onFindAccount, onLoggedIn }) {
   const [userId, setUserId] = useState("");
@@ -63,6 +61,8 @@ export default function LoginBox({ onFindAccount, onLoggedIn }) {
             : [];
         onLoggedIn?.({
           pages,
+          username: userId.trim(),
+          password,
           error: pages.some((item) => item.html) ? "" : data.screenError || "화면을 받지 못했습니다.",
         });
         return;
